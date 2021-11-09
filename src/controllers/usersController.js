@@ -7,6 +7,9 @@ class UserController {
   async register(req,res) {
     try {
       const { name, email, password } = req.body;
+      if (!name) {
+        return res.status(400).send({ alert: 'Name is Invalid.'});
+      };
       if (!isEmail.validate(email)){
         return res.status(400).send({ alert: 'Email is invalid, enter a valid email.'});
       };
