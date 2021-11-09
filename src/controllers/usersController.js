@@ -38,6 +38,17 @@ class UserController {
       return res.status(400).send({ erro: error.message });
     }
   };
+
+  async delete(req,res) {
+    const { id } = req.params;
+    try {
+      const deletedUser = await User.deleteOne({_id: id});
+      return res.status(201).send({ message: 'User has been deleted.'});
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    };
+  };
 };
 
 module.exports = new UserController();
