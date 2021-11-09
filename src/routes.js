@@ -14,6 +14,7 @@ router.get('/publisher-types', publisherTypeController.list);
 
 router.post('/groups', groupsController.register);
 router.post('/publisher-types', publisherTypeController.register);
+router.delete('/publisher-types/:id', publisherTypeController.remove);
 
 // Rotas de relatórios (Criar Relatório, Modificar Relatório, Listar Relatórios, Listar por Publicador)
 
