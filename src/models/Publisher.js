@@ -14,6 +14,16 @@ const PublisherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  group: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group',
+    required: true,
+  },
+  publisherType: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PublisherType',
+    required: true,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
