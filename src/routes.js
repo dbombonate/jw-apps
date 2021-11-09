@@ -9,10 +9,12 @@ router.get('/', (req, res) => {
 });
 
 //router.get('/publisher-type', publisherTypeController);
-router.get('/groups', groupsController.list);
+router.get('/groups/:id?', groupsController.list);
 router.post('/groups', groupsController.register);
+router.delete('/groups/:id', groupsController.remove);
+router.patch('/groups/:id', groupsController.update);
 
-router.get('/publisher-types', publisherTypeController.list);
+router.get('/publisher-types/:id?', publisherTypeController.list);
 router.post('/publisher-types', publisherTypeController.register);
 router.delete('/publisher-types/:id', publisherTypeController.remove);
 router.patch('/publisher-types/:id', publisherTypeController.update);

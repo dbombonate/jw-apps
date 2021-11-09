@@ -24,6 +24,33 @@ class GroupsController {
     };
   };
 
+  async remove(req,res) {
+    const { id }  = req.params;
+    try {
+      const deletedGroup = await Group.deleteOne({_id: id});
+      return res.status(200).send({message: 'Group removed!', deletedGroup});
+     } catch (error) {
+      console.log({
+        erro: error.message
+      });
+      return res.status(400).send({ erro: error.message });
+    }
+  };
+
+  async update(req,res) {
+    try {
+      const { id } = req.params;
+      const updatedGroupData = await Group.replaceOne({_id: id}, req.body);
+      const updatedGroup = await Group.findOne({_id: id});
+      return res.status(200).send({ updatedGroup, updatedGroupData });
+    } catch (error) {
+      console.log({
+        erro: error.message
+      });
+      return res.status(400).send({ erro: error.message});
+    }
+  }
+
 };
 
 module.exports = new GroupsController();
