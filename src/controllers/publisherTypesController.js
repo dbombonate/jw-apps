@@ -23,7 +23,7 @@ class PublisherTypeController {
         erro: error.message
       });
       return res.status(400).send({
-        message: 'Type not registeres'
+        message: 'Type not registered'
       });
     }
   };
@@ -40,6 +40,20 @@ class PublisherTypeController {
       return res.status(400).send({ message: 'Group not removed, try again later.'});
     }
   };
+
+  async update(req,res) {
+    try {
+      const id = req.params;
+      const updatedGroupData = await PublisherType.replaceOne({_id: id.id}, req.body);
+      const updatedGroup = await PublisherType.findOne({_id: id.id});
+      return res.status(200).send({ updatedGroup, updatedGroupData });
+    } catch (error) {
+      console.log({
+        erro: error.message
+      });
+      return res.status(400).send({ message: error.message});
+    }
+  }
 };
 
 module.exports = new PublisherTypeController();

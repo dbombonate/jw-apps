@@ -10,11 +10,12 @@ router.get('/', (req, res) => {
 
 //router.get('/publisher-type', publisherTypeController);
 router.get('/groups', groupsController.list);
-router.get('/publisher-types', publisherTypeController.list);
-
 router.post('/groups', groupsController.register);
+
+router.get('/publisher-types', publisherTypeController.list);
 router.post('/publisher-types', publisherTypeController.register);
 router.delete('/publisher-types/:id', publisherTypeController.remove);
+router.patch('/publisher-types/:id', publisherTypeController.update);
 
 // Rotas de relatórios (Criar Relatório, Modificar Relatório, Listar Relatórios, Listar por Publicador)
 
