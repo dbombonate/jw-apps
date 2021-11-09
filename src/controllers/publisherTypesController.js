@@ -3,7 +3,12 @@ const PublisherType = require('../models/PublisherType');
 class PublisherTypeController {
 
   async list(req, res) {
+    const { id } = req.params;
     try {
+      if (id) {
+        const publisherType = await PublisherType.findOne({ _id: id});
+        return res.status(200).send({ publisherType });
+      }
       const publisherTypes = await PublisherType.find();
       if (publisherTypes.length === 0) return res.send({ message: 'There are no publisher types to show!'});
       return res.status(200).send({ publisherTypes });
