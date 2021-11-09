@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 router.post('/users/register', userController.register);
 router.get('/user/:id?', userController.list);
 router.delete('/user/:id', userController.delete);
+router.patch('/user/:id', userController.update);
 
 router.get('/groups/:id?', groupsController.list);
 router.post('/groups', groupsController.register);
