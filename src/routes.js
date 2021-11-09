@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
   res.send({message: 'API jw-apps working fine!'});
 });
 
-router.post('/users/register', userController.register);
 router.get('/user/:id?', userController.list);
+router.post('/users/register', userController.register);
 router.delete('/user/:id', userController.delete);
 router.patch('/user/:id', userController.update);
 
