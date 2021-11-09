@@ -3,12 +3,14 @@ const router = express.Router();
 
 const groupsController = require('./controllers/groupsController');
 const publisherTypeController = require('./controllers/publisherTypesController');
+const userController = require('./controllers/usersController');
 
 router.get('/', (req, res) => {
   res.send({message: 'API jw-apps working fine!'});
 });
 
-//router.get('/publisher-type', publisherTypeController);
+router.post('/users/register', userController.register);
+
 router.get('/groups/:id?', groupsController.list);
 router.post('/groups', groupsController.register);
 router.delete('/groups/:id', groupsController.remove);
