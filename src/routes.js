@@ -15,18 +15,18 @@ router.post('/users/register', authController.register);
 router.post('/users/login', authController.login);
 
 router.get('/user/:id?', authMiddleware, userController.list);
-router.delete('/user/:id', userController.delete);
-router.patch('/user/:id', userController.update);
+router.delete('/user/:id', authMiddleware, userController.delete);
+router.patch('/user/:id', authMiddleware, userController.update);
 
-router.get('/groups/:id?', groupsController.list);
-router.post('/groups', groupsController.register);
-router.delete('/groups/:id', groupsController.remove);
-router.patch('/groups/:id', groupsController.update);
+router.get('/groups/:id?', authMiddleware, groupsController.list);
+router.post('/groups', authMiddleware, groupsController.register);
+router.delete('/groups/:id', authMiddleware, groupsController.remove);
+router.patch('/groups/:id', authMiddleware, groupsController.update);
 
-router.get('/publisher-types/:id?', publisherTypeController.list);
-router.post('/publisher-types', publisherTypeController.register);
-router.delete('/publisher-types/:id', publisherTypeController.remove);
-router.patch('/publisher-types/:id', publisherTypeController.update);
+router.get('/publisher-types/:id?', authMiddleware, publisherTypeController.list);
+router.post('/publisher-types', authMiddleware, publisherTypeController.register);
+router.delete('/publisher-types/:id', authMiddleware, publisherTypeController.remove);
+router.patch('/publisher-types/:id', authMiddleware, publisherTypeController.update);
 
 // Rotas de relatórios (Criar Relatório, Modificar Relatório, Listar Relatórios, Listar por Publicador)
 
