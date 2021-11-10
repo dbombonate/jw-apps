@@ -5,6 +5,7 @@ const groupsController = require('./controllers/groupsController');
 const publisherTypeController = require('./controllers/publisherTypesController');
 const userController = require('./controllers/usersController');
 const authController = require('./controllers/authController');
+const authMiddleware = require('./middlewares/auth');
 
 router.get('/', (req, res) => {
   res.send({message: 'API jw-apps working fine!'});
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 router.post('/users/register', authController.register);
 router.post('/users/login', authController.login);
 
-router.get('/user/:id?', userController.list);
+router.get('/user/:id?', authMiddleware, userController.list);
 router.delete('/user/:id', userController.delete);
 router.patch('/user/:id', userController.update);
 
