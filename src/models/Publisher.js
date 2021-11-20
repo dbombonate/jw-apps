@@ -24,7 +24,12 @@ const PublisherSchema = new mongoose.Schema({
     ref: 'PublisherType',
     required: true,
   },
-  user: {
+  isFamilyHead: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
