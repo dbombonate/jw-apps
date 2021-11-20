@@ -6,7 +6,7 @@ const publisherTypeController = require('./controllers/publisherTypesController'
 const userController = require('./controllers/usersController');
 const authController = require('./controllers/authController');
 const authMiddleware = require('./middlewares/auth');
-const accessMiddleware = require('./middlewares/access');
+const isAdminMiddleware = require('./middlewares/isAdmin');
 
 router.get('/', (req, res) => {
   res.send({message: 'API jw-apps working fine!'});
@@ -15,19 +15,26 @@ router.get('/', (req, res) => {
 router.post('/users/register', authController.register);
 router.post('/users/login', authController.login);
 
-router.get('/user/:id?', authMiddleware, accessMiddleware, userController.list);
-router.delete('/user/:id', authMiddleware, accessMiddleware, userController.delete);
-router.patch('/user/:id', authMiddleware, accessMiddleware, userController.update);
+router.get('/user/:id?', authMiddleware, isAdminMiddleware, userController.list);
+router.delete('/user/:id', authMiddleware, userController.delete);
+router.patch('/user/:id', authMiddleware, userController.update);
 
-router.get('/groups/:id?', authMiddleware, groupsController.list);
-router.post('/groups', authMiddleware, accessMiddleware, groupsController.register);
-router.delete('/groups/:id', authMiddleware, accessMiddleware, groupsController.remove);
-router.patch('/groups/:id', authMiddleware, accessMiddleware, groupsController.update);
+router.get('/groups/:id?', groupsController.list);
+router.post('/groups', authMiddleware, groupsController.register);
+router.delete('/groups/:id', authMiddleware, groupsController.remove);
+router.patch('/groups/:id', authMiddleware, groupsController.update);
 
-router.get('/publisher-types/:id?', authMiddleware, publisherTypeController.list);
-router.post('/publisher-types', authMiddleware, accessMiddleware, publisherTypeController.register);
-router.delete('/publisher-types/:id', authMiddleware, accessMiddleware, publisherTypeController.remove);
-router.patch('/publisher-types/:id', authMiddleware, accessMiddleware, publisherTypeController.update);
+router.get('/publisher-types/:id?', publisherTypeController.list);
+router.post('/publisher-types', authMiddleware, publisherTypeController.register);
+router.delete('/publisher-types/:id', authMiddleware, publisherTypeController.remove);
+router.patch('/publisher-types/:id', authMiddleware, publisherTypeController.update);
+
+router.post('/publishers/new', (req,res) => {
+  return res.send('Novo publicador.')
+});
+router.get('/publishers', (req,res) => {
+  return res.send('Publicadores Lista');
+});
 
 // Rotas de relatórios (Criar Relatório, Modificar Relatório, Listar Relatórios, Listar por Publicador)
 
