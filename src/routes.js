@@ -16,18 +16,18 @@ router.post('/users/register', authController.register);
 router.post('/users/login', authController.login);
 
 router.get('/user/:id?', authMiddleware, isAdminMiddleware, userController.list);
-router.delete('/user/:id', authMiddleware, userController.delete);
-router.patch('/user/:id', authMiddleware, userController.update);
+router.delete('/user/:id', authMiddleware, isAdminMiddleware, userController.delete);
+router.patch('/user/:id', authMiddleware, isAdminMiddleware, userController.update);
 
 router.get('/groups/:id?', groupsController.list);
-router.post('/groups', authMiddleware, groupsController.register);
-router.delete('/groups/:id', authMiddleware, groupsController.remove);
-router.patch('/groups/:id', authMiddleware, groupsController.update);
+router.post('/groups', authMiddleware, isAdminMiddleware, groupsController.register);
+router.delete('/groups/:id', authMiddleware, isAdminMiddleware, groupsController.remove);
+router.patch('/groups/:id', authMiddleware, isAdminMiddleware, groupsController.update);
 
 router.get('/publisher-types/:id?', publisherTypeController.list);
-router.post('/publisher-types', authMiddleware, publisherTypeController.register);
-router.delete('/publisher-types/:id', authMiddleware, publisherTypeController.remove);
-router.patch('/publisher-types/:id', authMiddleware, publisherTypeController.update);
+router.post('/publisher-types', authMiddleware, isAdminMiddleware, publisherTypeController.register);
+router.delete('/publisher-types/:id', authMiddleware, isAdminMiddleware, publisherTypeController.remove);
+router.patch('/publisher-types/:id', authMiddleware, isAdminMiddleware, publisherTypeController.update);
 
 router.post('/publishers/new', (req,res) => {
   return res.send('Novo publicador.')
