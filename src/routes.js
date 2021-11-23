@@ -5,6 +5,8 @@ const groupsController = require('./controllers/groupsController');
 const publisherTypeController = require('./controllers/publisherTypesController');
 const userController = require('./controllers/usersController');
 const authController = require('./controllers/authController');
+const publisherController = require('./controllers/publishersController');
+
 const authMiddleware = require('./middlewares/auth');
 const isAdminMiddleware = require('./middlewares/isAdmin');
 
@@ -29,13 +31,10 @@ router.post('/publisher-types', authMiddleware, isAdminMiddleware, publisherType
 router.delete('/publisher-types/:id', authMiddleware, isAdminMiddleware, publisherTypeController.remove);
 router.patch('/publisher-types/:id', authMiddleware, isAdminMiddleware, publisherTypeController.update);
 
-router.post('/publishers/new', (req,res) => {
-  return res.send('Novo publicador.')
-});
-router.get('/publishers', (req,res) => {
-  return res.send('Publicadores Lista');
-});
-
-// Rotas de relatórios (Criar Relatório, Modificar Relatório, Listar Relatórios, Listar por Publicador)
+router.post('/publishers/new', authMiddleware, isAdminMiddleware, publisherController.create);
+router.get('/publishers', authMiddleware, isAdminMiddleware, publisherController.list);
+router.get('/publishers/:id', authMiddleware, publisherController.listById);
+router.delete('/publishers/:id', authMiddleware, isAdminMiddleware, publisherController.delete);
+router.patch('/publishers/:id', authMiddleware, isAdminMiddleware, publisherController.update);
 
 module.exports = router;
