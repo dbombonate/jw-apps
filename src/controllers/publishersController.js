@@ -1,4 +1,7 @@
 const Publisher = require('../models/Publisher');
+const Group = require('../models/Group');
+const PublisherType = require('../models/PublisherType');
+const isEmail = require('isemail');
 
 class PublisherController {
   async list(req, res) {
@@ -17,7 +20,7 @@ class PublisherController {
   }
   async listById(req, res) {
     try {
-      const id = req.params;
+      const id = req.params.id;
       const publisher = await Publisher.findOne({ _id: id })
         .populate('group', 'name')
         .populate('publisherType', 'name')
@@ -32,6 +35,8 @@ class PublisherController {
     try {
       const { name, email, gender, group, publisherType, isFamilyHead, user } =
         req.body;
+      if(!isEmail.validate(email)) return res.status(401).send({ message: 'Invalid email.'});
+      if(gender !== 'male' && gender !== 'female') return res.status(401).send({ message: 'Invalid gender.'});
       const newPublisher = await Publisher.create(req.body);
       res.status(201).send({ newPublisher });
     } catch (error) {
@@ -41,7 +46,7 @@ class PublisherController {
   }
   async delete(req, res) {
     try {
-      const id = req.params;
+      const id = req.params.id;
       const publisher = await Publisher.deleteOne({ _id: id });
       return res.status(200).send({ message: 'Publisher Deleted.' });
     } catch (error) {
@@ -53,8 +58,9 @@ class PublisherController {
     try {
       const { name, email, gender, group, publisherType, isFamilyHead } =
         req.body;
-      const id = req.params;
-      const publisher = await Publisher.updateOne({ _id: id });
+      const id = req.params.id;
+      if(!await Publisher.findOne({ _id: id })) return res.status(401).send({ message: 'Invalid ID'});
+      const publisher = await Publisher.findOneAndUpdate({ _id: id }, req.body);
       return res.status(200).send({ publisher });
     } catch (error) {
       console.log({ erro: error.message });
