@@ -35,8 +35,9 @@ class PublisherController {
     try {
       const { name, email, gender, group, publisherType, isFamilyHead, user } =
         req.body;
-      if(!isEmail.validate(email)) return res.status(401).send({ message: 'Invalid email.'});
-      if(gender !== 'male' && gender !== 'female') return res.status(401).send({ message: 'Invalid gender.'});
+        if(!name) return res.status(400).send({ message: 'Invalid name.'});
+        if(!isEmail.validate(email)) return res.status(400).send({ message: 'Invalid email.'});
+      if(gender !== 'male' && gender !== 'female') return res.status(400).send({ message: 'Invalid gender.'});
       const newPublisher = await Publisher.create(req.body);
       res.status(201).send({ newPublisher });
     } catch (error) {
@@ -56,7 +57,7 @@ class PublisherController {
   }
   async update(req, res) {
     try {
-      const { name, email, gender, group, publisherType, isFamilyHead } =
+      const { name, email, gender } =
         req.body;
       const id = req.params.id;
       if(!await Publisher.findOne({ _id: id })) return res.status(401).send({ message: 'Invalid ID'});
