@@ -29,6 +29,11 @@ const PublisherSchema = new mongoose.Schema({
     required: true,
     default: false
   },
+  familyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Family',
+    required: true,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
