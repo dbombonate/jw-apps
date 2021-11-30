@@ -41,5 +41,7 @@ router.patch('/publishers/:id', authMiddleware, isAdminMiddleware, publisherCont
 router.post('/family/new', authMiddleware, isAdminMiddleware, familyController.create);
 router.get('/family', authMiddleware, isAdminMiddleware, familyController.list);
 router.get('/family/:id', authMiddleware, familyController.listById);
+router.delete('/family/:id', authMiddleware, familyController.delete);
+router.patch('/family/:id', authMiddleware, familyController.update);
 
 module.exports = router;

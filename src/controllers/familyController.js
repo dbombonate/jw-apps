@@ -16,7 +16,7 @@ class FamilyController{
 
   async listById(req, res) {
     const id = req.params.id;
-    if(!id) return res.status(400).send({ message: "Invalid family id."});
+    if(!id) return res.status(400).send({ message: "Invalid family id." });
     try {
       const familyListed = await Family.findOne({ _id: id});
       return res.status(200).send({ familyListed });
@@ -29,7 +29,7 @@ class FamilyController{
   async create(req, res) {
     try {
       const family = req.body;
-      if(!family) return res.status(400).send({ message: "Invalid family name."});
+      if(!family) return res.status(400).send({ message: "Invalid family name." });
       const familyCreated = await Family.create(family);
       return res.status(200).send({ familyCreated });
     } catch (error) {
@@ -39,11 +39,27 @@ class FamilyController{
   }
 
   async delete(req, res) {
-    return res.send({ message: "Delete by Id" });
+    const id = req.params.id;
+    if(!id) return res.status(400).send({ message: "Invalid family id." });
+    try {
+      const familyDelete = await Family.findOneAndDelete({ _id: id});
+      return res.status(200).send({ familyDelete });
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    }
   }
 
   async update(req, res) {
-    return res.send({ message: "Update by Id" });
+    const id = req.params.id;
+    if(!id) return res.status(400).send({ message: "Invalid family id." })
+    try {
+      const update = await Family.findOneAndUpdate({ _id: id}, req.body);
+      return res.status(200).send({ update });
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    }
   }
 }
 
