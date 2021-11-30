@@ -15,10 +15,9 @@ class FamilyController{
   }
 
   async listById(req, res) {
-    const id = req.params;
+    const id = req.params.id;
     if(!id) return res.status(400).send({ message: "Invalid family id."});
     try {
-      const { id } = req.params.id;
       const familyListed = await Family.findOne({ _id: id});
       return res.status(200).send({ familyListed });
     } catch (error) {
