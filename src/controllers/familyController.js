@@ -1,0 +1,51 @@
+const Family = require('../models/Family');
+
+class FamilyController{
+  async list(req, res) {
+    try {
+      const familyList = await Family.find();
+      if(familyList.length === 0) {
+        return res.status(200).send({ message: "There are no families to show." });
+      };
+      return res.status(200).send({ familyList });
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    }
+  }
+
+  async listById(req, res) {
+    const id = req.params;
+    if(!id) return res.status(400).send({ message: "Invalid family id."});
+    try {
+      const { id } = req.params.id;
+      const familyListed = await Family.findOne({ _id: id});
+      return res.status(200).send({ familyListed });
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    }
+  }
+
+  async create(req, res) {
+    try {
+      const family = req.body;
+      if(!family) return res.status(400).send({ message: "Invalid family name."});
+      const familyCreated = await Family.create(family);
+      return res.status(200).send({ familyCreated });
+    } catch (error) {
+      console.log({ erro: error.message });
+      return res.status(400).send({ erro: error.message });
+    }
+  }
+
+  async delete(req, res) {
+    return res.send({ message: "Delete by Id" });
+  }
+
+  async update(req, res) {
+    return res.send({ message: "Update by Id" });
+  }
+}
+
+module.exports = new FamilyController();

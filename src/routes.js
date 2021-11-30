@@ -6,6 +6,7 @@ const publisherTypeController = require('./controllers/publisherTypesController'
 const userController = require('./controllers/usersController');
 const authController = require('./controllers/authController');
 const publisherController = require('./controllers/publishersController');
+const familyController = require('./controllers/familyController');
 
 const authMiddleware = require('./middlewares/auth');
 const isAdminMiddleware = require('./middlewares/isAdmin');
@@ -36,5 +37,9 @@ router.get('/publishers', authMiddleware, isAdminMiddleware, publisherController
 router.get('/publishers/:id', authMiddleware, publisherController.listById);
 router.delete('/publishers/:id', authMiddleware, isAdminMiddleware, publisherController.delete);
 router.patch('/publishers/:id', authMiddleware, isAdminMiddleware, publisherController.update);
+
+router.post('/family/new', authMiddleware, isAdminMiddleware, familyController.create);
+router.get('/family', authMiddleware, isAdminMiddleware, familyController.list);
+router.get('/family/:id', authMiddleware, familyController.listById);
 
 module.exports = router;
