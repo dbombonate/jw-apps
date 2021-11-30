@@ -9,7 +9,8 @@ class PublisherController {
       const publishers = await Publisher.find()
         .populate('group', 'name')
         .populate('publisherType', 'name')
-        .populate('userId', 'name');
+        .populate('userId', 'name')
+        .populate('familyId', 'familyName');
       if (publishers.length === 0)
         return res.send({ message: 'There are no publishers to show!' });
       return res.status(200).send({ publishers });
@@ -24,7 +25,8 @@ class PublisherController {
       const publisher = await Publisher.findOne({ _id: id })
         .populate('group', 'name')
         .populate('publisherType', 'name')
-        .populate('userId', 'name');
+        .populate('userId', 'name')
+        .populate('familyId', 'familyName');
       return res.status(200).send({ publisher });
     } catch (error) {
       console.log({ erro: error.message });
@@ -33,7 +35,7 @@ class PublisherController {
   }
   async create(req, res) {
     try {
-      const { name, email, gender } = req.body;
+      const { name, email, gender, familyId } = req.body;
       if(!name) return res.status(400).send({ message: 'Invalid name.'});
       if(!isEmail.validate(email)) return res.status(400).send({ message: 'Invalid email.'});
       if(gender !== 'male' && gender !== 'female') return res.status(400).send({ message: 'Invalid gender.'});
@@ -54,7 +56,7 @@ class PublisherController {
       res.status(400).send({ erro: error.message });
     }
   }
-  async update(req, res) {
+  async update(req, res) { //Verificar as validações de campos, caso seja enviado somente um campo na req.body;
     try {
       const { name, email, gender } = req.body;
       const id = req.params.id;
