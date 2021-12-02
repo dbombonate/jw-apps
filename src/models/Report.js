@@ -2,16 +2,32 @@ const mongoose = require('../database');
 
 const ReportSchema = new mongoose.Schema({
 
-  name: {
-    type: String,
+  reportMonth: {
+    type: Number,
     require: true,
   },
-  email: {
-    type: String,
-    lowercase: true,
+  reportYear: {
+    type: Number,
+    required: true,
   },
-  gender: {
-    type: String,
+  reportHours: {
+    type: Number,
+    required: true,
+  },
+  reportVideos: {
+    type: Number,
+    required: true,
+  },
+  reportPublications: {
+    type: Number,
+    required: true,
+  },
+  reportRevisits: {
+    type: Number,
+    required: true,
+  },
+  reportBibleStudy: {
+    type: Number,
     required: true,
   },
   publisher: {

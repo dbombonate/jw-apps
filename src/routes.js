@@ -7,6 +7,7 @@ const userController = require('./controllers/usersController');
 const authController = require('./controllers/authController');
 const publisherController = require('./controllers/publishersController');
 const familyController = require('./controllers/familyController');
+const reportController = require('./controllers/reportController');
 
 const authMiddleware = require('./middlewares/auth');
 const isAdminMiddleware = require('./middlewares/isAdmin');
@@ -43,5 +44,11 @@ router.get('/family', authMiddleware, isAdminMiddleware, familyController.list);
 router.get('/family/:id', authMiddleware, isAdminMiddleware, familyController.listById);
 router.delete('/family/:id', authMiddleware, isAdminMiddleware, familyController.delete);
 router.patch('/family/:id', authMiddleware, isAdminMiddleware, familyController.update);
+
+router.post('/report/new', authMiddleware, isAdminMiddleware, reportController.create);
+router.get('/report', authMiddleware, isAdminMiddleware, reportController.list);
+router.get('/report/:id', authMiddleware, isAdminMiddleware, reportController.listByPublisher);
+//router.delete('/report/:id', authMiddleware, isAdminMiddleware, reportController.delete);
+//router.patch('/report/:id', authMiddleware, isAdminMiddleware, reportController.update);
 
 module.exports = router;
